@@ -80,7 +80,6 @@ def isCollision(t1, t2):
     else:
         return False
 def end():
-
     quit()
 si.listen()
 si.onkeypress(move_left, "Left")
