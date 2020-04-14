@@ -79,8 +79,6 @@ def isCollision(t1, t2):
         return True
     else:
         return False
-def end():
-    quit()
 si.listen()
 si.onkeypress(move_left, "Left")
 si.onkeypress(move_right, "Right")
@@ -96,7 +94,7 @@ for alien in aliens:
     alien.speed(0)
     alien.setposition(random.randint(-250, 250), random.randint(200, 280))
 
-alienspeed = 2
+alienspeed = 20
 
 gun = turtle.Turtle()
 gun.shape("images/gun.gif")
@@ -107,6 +105,7 @@ gunspeed = 30
 gunstate = "passive"
 
 while True:
+    flag = 0
     move_ship()
     for alien in aliens:
         x = alien.xcor()
@@ -118,17 +117,17 @@ while True:
             for a in aliens:
                 a.sety(a.ycor() - 40)
                 if a.ycor() < ship.ycor():
-                    print("!!!GAME OVER!!!")
-                    print("Score:" + format(score))
-                    end()
+                    flag = 1
+                    si.clear()
+                    break;
         if x < -280:
             alienspeed *= -1
             for a in aliens:
                 a.sety(a.ycor() - 40)
                 if a.ycor() < ship.ycor():
-                    print("!!!GAME OVER!!!")
-                    print("Score:" + format(score))
-                    end()
+                    flag = 1
+                    si.clear()
+                    break;
         if isCollision(gun, alien):
             winsound.PlaySound("sounds/explosion.wav", winsound.SND_ASYNC)
             gun.hideturtle()
@@ -144,9 +143,9 @@ while True:
 
         if isCollision(ship, alien):
             ship.hideturtle()
-            print("!!!GAME OVER!!!")
-            print("Score:" + format(score))
-            end()
+            flag = 1
+            si.clear()
+            break;
 
     if gunstate == "active":
         gun.sety(gun.ycor() + gunspeed)
@@ -154,3 +153,25 @@ while True:
     if gun.ycor() > 280:
         gun.hideturtle()
         gunstate = "passive"
+
+    if flag == 1:
+        break;
+pygame.mixer.music.stop()
+si.bgcolor("black")
+si.bgpic("images/back.gif")
+border_pen.penup()
+border_pen.setposition(-315, -315)
+border_pen.pendown()
+for i in range(4):
+    border_pen.forward(630)
+    border_pen.left(90)
+border_pen.hideturtle()
+over ="!!!GAME OVER!!!"
+score_pen.penup()
+score_pen.setposition(0, 0)
+score_pen.write(over, False, align="center", font=("Monospace", 32, "normal"))
+score_pen.penup()
+score_pen.setposition(0, 100)
+score_pen.write(scorestring, False, align="center", font=("Arial", 30, "normal"))
+score_pen.hideturtle()
+si.mainloop()
