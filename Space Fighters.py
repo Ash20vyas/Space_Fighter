@@ -2,7 +2,10 @@ import turtle
 import math
 import random
 import winsound
-
+import pygame
+pygame.mixer.init()
+pygame.mixer.music.load('sounds/intro.mp3')
+pygame.mixer.music.play(100)
 # intro
 
 
@@ -27,6 +30,7 @@ for i in range(4):
 intro.hideturtle()
 gunstate="passive"
 intro.penup()
+intro.speed(0.5)
 intro.color("turquoise")
 intro.setposition(0, 150)
 intro.write("SPACE", True, align="center", font=("Comic Sans MS", 60, "bold", "underline"))
@@ -44,10 +48,10 @@ intro.write("!!!press enter to play!!!", True, align="center", font=("Comic Sans
 # Game Begins
 
 def game_begin():
-    import pygame
+
     global gunstate
-    pygame.mixer.init()
-    pygame.mixer.music.load('sounds/background.wav')
+    pygame.mixer.music.stop()
+    pygame.mixer.music.load('sounds/back.mp3')
     pygame.mixer.music.play(100)
 
     front.clear()
@@ -169,11 +173,11 @@ def game_begin():
                         si.clear()
                         break
             if isCollision(gun, alien):
-                winsound.PlaySound("sounds/explosion.wav", winsound.SND_ASYNC)
+                winsound.PlaySound("sounds/kill.wav", winsound.SND_ASYNC)
                 gun.hideturtle()
                 gunstate = "passive"
                 gun.setposition(0, -400)
-                alien.setposition(random.randint(-250, 250), random.randint(200, 280))
+                alien.setposition(random.randint(-200, 200), random.randint(200, 280))
                 score += 10
                 scorestring = "Score: {}".format(score)
                 score_pen.clear()
@@ -197,7 +201,9 @@ def game_begin():
         if flag == 1:
             break
     pygame.mixer.music.stop()
-
+    pygame.mixer.music.load("sounds/end.mp3")
+    pygame.mixer.music.play(100)
+    pygame.mixer.music.set_volume(10)
     # game stop
 
     si.bgcolor("black")
