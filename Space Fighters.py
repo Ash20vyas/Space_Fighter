@@ -16,7 +16,7 @@ front.register_shape("images/ship.gif")
 
 intro = turtle.Turtle()
 intro.speed(0)
-intro.color("cyan")
+intro.color("white")
 intro.penup()
 intro.setposition(-315, -315)
 intro.pendown()
@@ -27,15 +27,18 @@ for i in range(4):
 intro.hideturtle()
 gunstate="passive"
 intro.penup()
+intro.color("turquoise")
 intro.setposition(0, 150)
 intro.write("SPACE", True, align="center", font=("Comic Sans MS", 60, "bold", "underline"))
 intro.penup()
 intro.setposition(0, 60)
 intro.write("FIGHTERS", True, align="center", font=("Comic Sans MS", 60, "bold", "underline"))
 intro.penup()
+intro.color("gold")
 intro.setposition(280, -20)
 intro.write("-By Ashutosh Vyas", True, align="right", font=("Comic Sans MS", 30, "bold", "italic"))
 intro.penup()
+intro.color("red")
 intro.setposition(0, -130)
 intro.write("!!!press enter to play!!!", True, align="center", font=("Comic Sans MS", 25, "normal"))
 # Game Begins
@@ -126,16 +129,17 @@ def game_begin():
     for i in range(alien_number):
         aliens.append(turtle.Turtle())
     for alien in aliens:
-        alien.shape("images/alien.gif")
         alien.penup()
         alien.speed(0)
+        alien.shape("images/alien.gif")
         alien.setposition(random.randint(-250, 250), random.randint(200, 280))
-    alienspeed = 20
+    alienspeed = 2
 
     gun = turtle.Turtle()
     gun.shape("images/gun.gif")
     gun.penup()
     gun.speed(0)
+    gun.setposition(0, -400)
     gun.hideturtle()
     gunspeed = 30
 
@@ -206,9 +210,11 @@ def game_begin():
         border_pen.left(90)
     border_pen.hideturtle()
     score_pen.penup()
-    score_pen.setposition(0, 0)
+    score_pen.color("yellow")
+    score_pen.setposition(0, -30)
     score_pen.write("!!!GAME OVER!!!", False, align="center", font=("Times", 50, "normal"))
     score_pen.penup()
+    score_pen.color("gold")
     score_pen.setposition(0, 100)
     score_pen.write(scorestring, False, align="center", font=("Courier", 40, "normal"))
     score_pen.hideturtle()
